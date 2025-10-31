@@ -1,0 +1,64 @@
+{
+  "name": "Feuilles de Temps",
+  "short_name": "Feuilles de Temps",
+  "description": "Application de gestion des feuilles de temps",
+  "theme_color": "#1e40af",
+  "background_color": "#ffffff",
+  "display": "standalone",
+  "orientation": "portrait",
+  "scope": "/",
+  "start_url": "/",
+  "categories": ["business", "productivity"],
+  "lang": "fr",
+  "dir": "ltr",
+  "icons": [
+    {
+      "src": "pwa-64x64.png",
+      "sizes": "64x64",
+      "type": "image/png"
+    },
+    {
+      "src": "pwa-192x192.png",
+      "sizes": "192x192",
+      "type": "image/png"
+    },
+    {
+      "src": "pwa-512x512.png",
+      "sizes": "512x512",
+      "type": "image/png",
+      "purpose": "any"
+    },
+    {
+      "src": "maskable-icon-512x512.png",
+      "sizes": "512x512",
+      "type": "image/png",
+      "purpose": "maskable"
+    }
+  ],
+  "shortcuts": [
+    {
+      "name": "Enregistrer mes heures",
+      "short_name": "Heures",
+      "description": "Accès rapide pour enregistrer vos heures",
+      "url": "/",
+      "icons": [
+        {
+          "src": "pwa-192x192.png",
+          "sizes": "192x192"
+        }
+      ]
+    },
+    {
+      "name": "Mes feuilles de temps",
+      "short_name": "Feuilles",
+      "description": "Consulter vos feuilles de temps",
+      "url": "/timesheets",
+      "icons": [
+        {
+          "src": "pwa-192x192.png",
+          "sizes": "192x192"
+        }
+      ]
+    }
+  ]
+}

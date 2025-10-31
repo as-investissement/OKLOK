@@ -1,0 +1,7 @@
+<?xml version='1.0' encoding='utf-8'?>
+<resources>
+    <string name="app_name">Feuilles de Temps</string>
+    <string name="title_activity_main">Feuilles de Temps</string>
+    <string name="package_name">com.feuillestemps.app</string>
+    <string name="custom_url_scheme">com.feuillestemps.app</string>
+</resources>

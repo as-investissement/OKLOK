@@ -1,0 +1,220 @@
+<!DOCTYPE html>
+<html lang="fr">
+  <head>
+    <meta charset="UTF-8" />
+    <link rel="icon" type="image/svg+xml" href="/vite.svg" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+    <meta name="theme-color" content="#1e40af" />
+    <meta name="description" content="Application de gestion des feuilles de temps" />
+    
+    <!-- Forcer le rendu sur mobile -->
+    <meta name="format-detection" content="telephone=no" />
+    <meta name="msapplication-tap-highlight" content="no" />
+    
+    <!-- PWA Configuration -->
+    <meta name="mobile-web-app-capable" content="yes" />
+    <meta name="apple-mobile-web-app-capable" content="yes" />
+    <meta name="apple-mobile-web-app-status-bar-style" content="default" />
+    <meta name="apple-mobile-web-app-title" content="Feuilles de Temps" />
+    <meta name="application-name" content="Feuilles de Temps" />
+    
+    <!-- Police personnalisée pour Décembre -->
+    <link rel="stylesheet" href="/fonts.css">
+    
+    <!-- Icons -->
+    <link rel="apple-touch-icon" href="/apple-touch-icon.png" sizes="180x180" />
+    <link rel="mask-icon" href="/mask-icon.svg" color="#1e40af" />
+    <link rel="manifest" href="/manifest.webmanifest" />
+    
+    <!-- Preload critical resources -->
+    <link rel="preload" href="/Noel.png" as="image" />
+    <link rel="preload" href="/Paques.png" as="image" />
+    
+    <title>Feuilles de Temps</title>
+  </head>
+  <body>
+    <!-- Fallback pour les erreurs JavaScript -->
+    <noscript>
+      <style>
+        .no-js-message {
+          display: flex;
+          align-items: center;
+          justify-content: center;
+          min-height: 100vh;
+          background-color: #f3f4f6;
+          font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+          text-align: center;
+          padding: 20px;
+        }
+        .no-js-content {
+          background: white;
+          padding: 40px;
+          border-radius: 8px;
+          box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+          max-width: 400px;
+        }
+      </style>
+      <div class="no-js-message">
+        <div class="no-js-content">
+          <h1>JavaScript requis</h1>
+          <p>Cette application nécessite JavaScript pour fonctionner. Veuillez l'activer dans votre navigateur.</p>
+        </div>
+      </div>
+    </noscript>
+    
+    <div id="root">
+      <!-- Indicateur de chargement -->
+      <div id="loading-indicator" style="
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background: black;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        z-index: 9999;
+        font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+      ">
+        <div style="text-align: center;">
+          <div class="loading-logo-container">
+            <img
+              src="/logos/logoas.png"
+              alt="AS Investissement"
+              class="loading-logo"
+            />
+          </div>
+          <p style="color: white; margin: 16px 0 0 0; font-size: 18px; font-weight: 500;">Chargement...</p>
+        </div>
+      </div>
+      
+      <style>
+        .loading-logo-container {
+          position: relative;
+          display: inline-block;
+        }
+
+        .loading-logo {
+          width: min(300px, 80vw);
+          height: min(300px, 80vw);
+          object-fit: contain;
+          animation: logoRotate 2s linear infinite;
+          transform-origin: center;
+        }
+
+        @keyframes logoRotate {
+          0% {
+            transform: rotate(0deg) scale(1);
+          }
+          25% {
+            transform: rotate(90deg) scale(1.1);
+          }
+          50% {
+            transform: rotate(180deg) scale(1.2);
+          }
+          75% {
+            transform: rotate(270deg) scale(1.1);
+          }
+          100% {
+            transform: rotate(360deg) scale(1);
+          }
+        }
+
+        /* Animation d'entrée pour le conteneur de chargement */
+        .loading-logo-container::before {
+          content: '';
+          position: absolute;
+          top: -20px;
+          left: -20px;
+          right: -20px;
+          bottom: -20px;
+          border: 2px solid transparent;
+          border-radius: 50%;
+          animation: borderRotate 4s linear infinite;
+        }
+
+        @keyframes borderRotate {
+          0% {
+            border-color: transparent transparent rgba(255, 255, 255, 0.3) transparent;
+            transform: rotate(0deg);
+          }
+          25% {
+            border-color: transparent rgba(255, 255, 255, 0.3) transparent transparent;
+          }
+          50% {
+            border-color: rgba(255, 255, 255, 0.3) transparent transparent transparent;
+          }
+          75% {
+            border-color: transparent transparent transparent rgba(255, 255, 255, 0.3);
+          }
+          100% {
+            border-color: transparent transparent rgba(255, 255, 255, 0.3) transparent;
+            transform: rotate(360deg);
+          }
+        }
+
+        /* Effet de particules autour du logo */
+        .loading-logo-container::after {
+          content: '';
+          position: absolute;
+          top: 50%;
+          left: 50%;
+          width: 400px;
+          height: 400px;
+          margin: -200px 0 0 -200px;
+          border: 1px solid rgba(255, 255, 255, 0.1);
+          border-radius: 50%;
+          animation: ripple 3s ease-out infinite;
+        }
+
+        @keyframes ripple {
+          0% {
+            transform: scale(0.8);
+            opacity: 1;
+          }
+          100% {
+            transform: scale(1.2);
+            opacity: 0;
+          }
+        }
+      </style>
+      
+      <script>
+        // Masquer l'indicateur de chargement une fois que React est chargé
+        window.addEventListener('load', function() {
+          setTimeout(function() {
+            const loadingIndicator = document.getElementById('loading-indicator');
+            if (loadingIndicator) {
+              loadingIndicator.style.display = 'none';
+            }
+          }, 1000);
+        });
+        
+        // Gestion d'erreur globale
+        window.addEventListener('error', function(e) {
+          console.error('Erreur JavaScript:', e.error);
+          const loadingIndicator = document.getElementById('loading-indicator');
+          if (loadingIndicator) {
+            loadingIndicator.innerHTML = `
+              <div style="text-align: center; color: #dc2626;">
+                <h2>Erreur de chargement</h2>
+                <p>Une erreur est survenue lors du chargement de l'application.</p>
+                <button onclick="window.location.reload()" style="
+                  background: #3b82f6;
+                  color: white;
+                  border: none;
+                  padding: 12px 24px;
+                  border-radius: 6px;
+                  cursor: pointer;
+                  margin-top: 16px;
+                ">Recharger</button>
+              </div>
+            `;
+          }
+        });
+      </script>
+    </div>
+    <script type="module" src="/src/main.tsx"></script>
+  </body>
+</html>

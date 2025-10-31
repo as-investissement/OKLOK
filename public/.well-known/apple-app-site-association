@@ -1,0 +1,14 @@
+{
+  "applinks": {
+    "apps": [],
+    "details": [
+      {
+        "appID": "27M7T5B43D.com.ahlem.feuillesdetemps",
+        "paths": [
+          "/activate-account",
+          "/activate-account/*"
+        ]
+      }
+    ]
+  }
+}
